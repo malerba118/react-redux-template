@@ -1,8 +1,21 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import {
+  actions as apiActions,
+  selectors as apiSelectors
+} from 'store/ducks/api'
 import './App.scss';
 
 class App extends Component {
+
+  componentDidMount() {
+    this.props.getPosts()
+  }
+
   render() {
+    if (this.props.posts == null) {
+      return <div>Loading...</div>
+    }
     return (
       <div className="App">
         <header className="App-header">
@@ -17,10 +30,29 @@ class App extends Component {
           >
             Learn React
           </a>
+          {this.props.posts.map((post) => (
+            <p key={post.id}>
+              {post.title}
+            </p>
+          ))}
         </header>
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    posts: apiSelectors.getPosts(state),
+    isGetPostsPending: apiSelectors.isGetPostsPending(state)
+  }
+}
+
+const mapDispatchToProps = {
+  getPosts: apiActions.getPosts,
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)
