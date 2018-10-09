@@ -4,7 +4,9 @@ import {
   actions as apiActions,
   selectors as apiSelectors
 } from 'store/ducks/api'
-import './App.scss';
+
+import styles from './App.module.scss'; // Import css modules stylesheet as styles
+
 
 class App extends Component {
 
@@ -17,13 +19,13 @@ class App extends Component {
       return <div>Loading...</div>
     }
     return (
-      <div className="App">
-        <header className="App-header">
+      <div className={styles.App}>
+        <header className={styles.AppHeader}>
           <p>
             Edit <code>src/App.js</code> and save to reload.
           </p>
           <a
-            className="App-link"
+            className={styles.AppLink}
             href="https://reactjs.org"
             target="_blank"
             rel="noopener noreferrer"
