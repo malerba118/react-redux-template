@@ -1,20 +1,30 @@
 import { handleActions } from 'redux-actions'
 import { createAsyncAction } from 'redux-promise-middleware-actions'
 import mockApiClient from 'services/mockApiClient'
+import { schemas } from '../db'
+import { normalize } from 'normalizr'
 
 // Action types
-const CREATE_POST = `api/CREATE_POST`
+const GET_POSTS = `api/GET_POSTS`
 
 // Reducer namespace
-export const namespace = CREATE_POST
+export const namespace = GET_POSTS
 
 // Actions
-const createPost = createAsyncAction(CREATE_POST, async (post) => {
-  return mockApiClient.createPost(post)
-});
+const getPosts = createAsyncAction(
+  //action name
+  GET_POSTS,
+  //payload
+  async () => {
+    let posts = await mockApiClient.getPosts()
+    return normalize(posts, [schemas.PostSchema])
+  },
+  //meta data
+  () => ({isNormalized: true})
+);
 
 export const actions = {
-  createPost
+  getPosts
 }
 
 
@@ -29,7 +39,7 @@ let initialState = {
 // Reducer
 export const reducer = handleActions(
   {
-    [String(createPost.pending)]: (state, action) => {
+    [String(getPosts.pending)]: (state, action) => {
       return {
         ...state,
         pending: true,
@@ -37,16 +47,17 @@ export const reducer = handleActions(
         rejected: false,
       }
     },
-    [String(createPost.fulfilled)]: (state, action) => {
+    [String(getPosts.fulfilled)]: (state, action) => {
+      console.log(action)
       return {
         ...state,
-        data: action.payload,
+        data: action.meta.isNormalized ? action.payload.result : action.payload,
         error: null,
         pending: false,
         fulfilled: true,
       }
     },
-    [String(createPost.rejected)]: (state, action) => {
+    [String(getPosts.rejected)]: (state, action) => {
       return {
         ...state,
         error: action.payload,
@@ -59,7 +70,7 @@ export const reducer = handleActions(
 )
 
 // Selectors
-let selectorPrefix = 'createPost'
+let selectorPrefix = 'getPosts'
 export const selectors = {
   [`${selectorPrefix}Data`]: (state) => (state[namespace].data),
   [`${selectorPrefix}Pending`]: (state) => (state[namespace].pending),

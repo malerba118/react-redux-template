@@ -3,8 +3,9 @@ import { connect } from 'react-redux'
 import {
   actions as apiActions,
   selectors as apiSelectors
-} from 'store/ducks/api'
-import { DB } from 'store/db'
+} from 'store/api'
+import { EntitySnapshot } from 'store/db'
+import { selectors as querySelectors } from 'store/queries'
 
 import styles from './App.module.scss'; // Import css modules stylesheet as styles
 
@@ -13,15 +14,17 @@ class App extends Component {
 
   componentDidMount() {
     this.props.getPosts()
-    this.props.createPost({
-      id: 999,
-      title: 'idk',
-      author: {
-        id: 2,
-        name: 'Austin',
-        email: 'frostinmalaria@gmail.com',
-      }
-    })
+    setTimeout(() => {
+      this.props.createPost({
+        id: 999,
+        title: 'idk',
+        author: {
+          id: 2,
+          name: 'Austin',
+          email: 'frostinmalaria@gmail.com',
+        }
+      })
+    }, 5000)
   }
 
   render() {
@@ -54,9 +57,10 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-  let db = new DB(state)
+  let entitySnapshot = new EntitySnapshot(state)
+  let query = querySelectors.getAllPostIds(state)
   return {
-    posts: db.getPosts(),
+    posts: entitySnapshot.getPostsById(query),
     isGetPostsPending: apiSelectors.getPostsPending(state)
   }
 }

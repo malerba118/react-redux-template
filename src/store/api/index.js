@@ -1,6 +1,12 @@
 import * as getPostsDuck from './getPosts'
 import * as createPostDuck from './createPost'
 
+/*
+*  The api module maintains async action info such as promise
+*  state, data, and errors. Api results can also be used to query
+*  the db module in cases where it makes sense.
+*/
+
 let ducks = [
   getPostsDuck,
   createPostDuck

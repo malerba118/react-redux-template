@@ -1,25 +1,25 @@
-// selectors.js
-import { createSelector } from 'redux-orm';
-import orm from './orm';
+import * as schemas from './schemas'
+import { denormalize } from 'normalizr'
+import { createSelector } from 'reselect'
 
-const dbStateSelector = state => state.db;
+const entitiesSelector = state => state.entities
 
-class DB {
+class EntitySnapshot {
 
   constructor(state) {
     this.state = state
   }
 
-  getPosts = () => {
+  getPostsById = (ids) => {
     let selector = createSelector(
-        orm,
-        dbStateSelector,
-        session => {
-            return session.Post.all().toRefArray()
+        entitiesSelector,
+        entities => {
+            return denormalize(ids, [schemas.PostSchema], entities)
         }
     )
     return selector(this.state)
   }
+
 }
 
-export default DB
+export default EntitySnapshot
