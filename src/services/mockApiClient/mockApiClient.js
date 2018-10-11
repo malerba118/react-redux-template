@@ -1,6 +1,7 @@
 import utils from 'services/utils'
 import users from './users.json'
-import posts from './posts.json'
+import allPosts from './posts.json'
+let posts = allPosts.slice(0, 10)
 
 const TIMEOUT_MS = 1000
 
@@ -28,6 +29,13 @@ class MockApiClient {
   async getPosts () {
     await utils.timeout(TIMEOUT_MS)
     return posts
+  }
+
+  async createPost ( {id, title, author} = {} ) {
+    await utils.timeout(TIMEOUT_MS)
+    let newPost = {id, title, author}
+    posts.push(newPost)
+    return newPost
   }
 
   async logOut () {

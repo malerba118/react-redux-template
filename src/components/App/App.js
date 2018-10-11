@@ -4,6 +4,7 @@ import {
   actions as apiActions,
   selectors as apiSelectors
 } from 'store/ducks/api'
+import { DB } from 'store/db'
 
 import styles from './App.module.scss'; // Import css modules stylesheet as styles
 
@@ -12,6 +13,15 @@ class App extends Component {
 
   componentDidMount() {
     this.props.getPosts()
+    this.props.createPost({
+      id: 999,
+      title: 'idk',
+      author: {
+        id: 2,
+        name: 'Austin',
+        email: 'frostinmalaria@gmail.com',
+      }
+    })
   }
 
   render() {
@@ -34,7 +44,7 @@ class App extends Component {
           </a>
           {this.props.posts.map((post) => (
             <p key={post.id}>
-              {post.title}
+              {post.title} - {post.author && post.author.name}
             </p>
           ))}
         </header>
@@ -44,14 +54,16 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
+  let db = new DB(state)
   return {
-    posts: apiSelectors.getPosts(state),
-    isGetPostsPending: apiSelectors.isGetPostsPending(state)
+    posts: db.getPosts(),
+    isGetPostsPending: apiSelectors.getPostsPending(state)
   }
 }
 
 const mapDispatchToProps = {
   getPosts: apiActions.getPosts,
+  createPost: apiActions.createPost
 }
 
 export default connect(

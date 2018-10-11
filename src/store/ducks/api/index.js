@@ -1,7 +1,9 @@
 import * as getPostsDuck from './getPosts'
+import * as createPostDuck from './createPost'
 
 let ducks = [
-  getPostsDuck
+  getPostsDuck,
+  createPostDuck
 ]
 
 export const reducers = ducks.reduce(
@@ -21,7 +23,7 @@ export const actions = ducks.reduce(
 
 export const selectors = ducks.reduce(
   (selectorsMap, duck) => {
-    return {...selectorsMap, ...duck.selectors}  
+    return {...selectorsMap, ...duck.selectors}
   },
   {}
 )

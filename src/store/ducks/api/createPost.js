@@ -3,18 +3,18 @@ import { createAsyncAction } from 'redux-promise-middleware-actions'
 import mockApiClient from 'services/mockApiClient'
 
 // Action types
-const GET_POSTS = `api/GET_POSTS`
+const CREATE_POST = `api/CREATE_POST`
 
 // Reducer namespace
-export const namespace = GET_POSTS
+export const namespace = CREATE_POST
 
 // Actions
-const getPosts = createAsyncAction(GET_POSTS, async () => {
-  return mockApiClient.getPosts()
+const createPost = createAsyncAction(CREATE_POST, async (post) => {
+  return mockApiClient.createPost(post)
 });
 
 export const actions = {
-  getPosts
+  createPost
 }
 
 
@@ -29,7 +29,7 @@ let initialState = {
 // Reducer
 export const reducer = handleActions(
   {
-    [String(getPosts.pending)]: (state, action) => {
+    [String(createPost.pending)]: (state, action) => {
       return {
         ...state,
         pending: true,
@@ -37,7 +37,7 @@ export const reducer = handleActions(
         rejected: false,
       }
     },
-    [String(getPosts.fulfilled)]: (state, action) => {
+    [String(createPost.fulfilled)]: (state, action) => {
       return {
         ...state,
         data: action.payload,
@@ -46,7 +46,7 @@ export const reducer = handleActions(
         fulfilled: true,
       }
     },
-    [String(getPosts.rejected)]: (state, action) => {
+    [String(createPost.rejected)]: (state, action) => {
       return {
         ...state,
         error: action.payload,
@@ -59,7 +59,7 @@ export const reducer = handleActions(
 )
 
 // Selectors
-let selectorPrefix = 'getPosts'
+let selectorPrefix = 'createPost'
 export const selectors = {
   [`${selectorPrefix}Data`]: (state) => (state[namespace].data),
   [`${selectorPrefix}Pending`]: (state) => (state[namespace].pending),
