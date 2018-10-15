@@ -1,20 +1,24 @@
 import {mergeWith, isArray} from 'lodash'
+import { handleActions } from 'redux-actions'
+import * as dbActions from './actions'
 
 const initialState = {
   Post: {},
   User: {},
 }
 
-//recursively merge all entities together to update db
-const reducer = (state = initialState, action) => {
-  if (action.meta && action.meta.isNormalized && action.payload && action.payload.entities) {
-    return mergeWith({}, state, action.payload.entities, function (objValue, srcValue) {
-      if (isArray(objValue)) {
-        return srcValue
-      }
-    })
-  }
-  return state
-}
+// Reducer
+const reducer = handleActions(
+  {
+    [dbActions.updateEntities]: (state, action) => {
+      return mergeWith({}, state, action.payload, function (objValue, srcValue) {
+        if (isArray(objValue)) {
+          return srcValue
+        }
+      })
+    },
+  },
+  initialState
+)
 
 export default reducer

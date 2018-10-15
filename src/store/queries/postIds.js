@@ -1,37 +1,48 @@
-import { handleActions } from 'redux-actions'
-import {
-  actions as apiActions,
-  selectors as apiSelectors
-} from '../api'
+import { handleActions, createAction } from 'redux-actions'
+
+let queries = {
+  'Post': {
+    tags: ['all']
+  }
+}
 
 // Reducer namespace
-export const namespace = 'postIds'
+export const namespace = `queries`
+
+export const actions = {
+  addIds: createAction('ADD_IDS')
+}
 
 let initialState = {
-  all: [],
-  mine: [],
+  Post: {
+    all: [],
+    mine: [],
+  }
 }
 
 // Reducer
 export const reducer = handleActions(
   {
-    [String(apiActions.createPost.fulfilled)]: (state, action) => {
-      return {
-        ...state,
-        all: [...state.all, action.payload.result],
+    [actions.addIds]: (state, action) => {
+      let payload = action.payload
+      let queryEntity = queries[payload.entity]
+      if (queryEntity != null) {
+        if (queryEntity.tags.includes(payload.tag)) {
+          return {
+            ...state,
+            [payload.entity]: {
+              ...state[payload.entity],
+              [payload.tag]: [...state[payload.entity][payload.tag], ...payload.ids]
+            },
+          }
+        }
       }
-    },
-    [String(apiActions.getPosts.fulfilled)]: (state, action) => {
-      return {
-        ...state,
-        all: [...state.all, ...action.payload.result],
-      }
+      throw new Error('Entity and/or tag does not exist.')
     },
   },
   initialState
 )
 
 export const selectors = {
-  getAllPostIds: (state) => state[namespace].all,
-  getMyPostIds: (state) => state[namespace].mine,
+  getIds: (state, entity, tag) => state[namespace][entity][tag],
 }

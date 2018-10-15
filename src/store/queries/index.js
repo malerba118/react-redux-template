@@ -4,7 +4,7 @@ let ducks = [
   postIdsDuck,
 ]
 
-/* 
+/*
 *  The queries module maintains what we should be fetching
 *  from the db module via the result feild of normalized data.
 */
@@ -13,6 +13,13 @@ export const reducers = ducks.reduce(
   (reducerMap, duck) => {
     reducerMap[duck.namespace] = duck.reducer
     return reducerMap
+  },
+  {}
+)
+
+export const actions = ducks.reduce(
+  (actionsMap, duck) => {
+    return {...actionsMap, ...duck.actions}
   },
   {}
 )

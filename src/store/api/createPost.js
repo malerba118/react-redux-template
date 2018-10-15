@@ -1,33 +1,47 @@
 import { handleActions } from 'redux-actions'
 import { createAsyncAction } from 'redux-promise-middleware-actions'
 import mockApiClient from 'services/mockApiClient'
-import { schemas } from '../db'
+import { schemas, actions as dbActions } from '../db'
+import { actions as queryActions } from '../queries'
 import { normalize } from 'normalizr'
 
 // Action types
-const CREATE_POST = `api/CREATE_POST`
+const ACTION_NAME = 'createPost'
 
 // Reducer namespace
-export const namespace = CREATE_POST
+export const namespace = `api/CREATE_POST`
 
 // Actions
-const createPost = createAsyncAction(
-  //action name
-  CREATE_POST,
-  //payload
-  async (post) => {
-    post = await mockApiClient.createPost(post)
-    return normalize(post, schemas.PostSchema)
-  },
-  //meta data
-  () => ({isNormalized: true})
-);
-
-export const actions = {
-  createPost
+const action = (post) => {
+ return dispatch => {
+    return dispatch({
+      type: namespace,
+      payload: mockApiClient.createPost(post)
+    })
+      .then(data => {
+        let post = data.value
+        let normalizedData = normalize(post, schemas.PostSchema)
+        dispatch(
+          dbActions.updateEntities(normalizedData.entities)
+        )
+        dispatch(
+          queryActions.addIds({entity: 'Post', tag: 'all', ids: [normalizedData.result]})
+        )
+      })
+  }
 }
 
 
+action.PENDING = `${namespace}_PENDING`
+action.FULFILLED = `${namespace}_FULFILLED`
+action.REJECTED = `${namespace}_REJECTED`
+
+export const actions = {
+  [ACTION_NAME]: action
+}
+
+
+// Reducer
 let initialState = {
   pending: false,
   fulfilled: false,
@@ -36,10 +50,9 @@ let initialState = {
   error: null,
 }
 
-// Reducer
 export const reducer = handleActions(
   {
-    [String(createPost.pending)]: (state, action) => {
+    [action.PENDING]: (state, action) => {
       return {
         ...state,
         pending: true,
@@ -47,16 +60,16 @@ export const reducer = handleActions(
         rejected: false,
       }
     },
-    [String(createPost.fulfilled)]: (state, action) => {
+    [action.FULFILLED]: (state, action) => {
       return {
         ...state,
-        data: action.meta.isNormalized ? action.payload.result : action.payload,
+        data: action.payload,
         error: null,
         pending: false,
         fulfilled: true,
       }
     },
-    [String(createPost.rejected)]: (state, action) => {
+    [action.REJECTED]: (state, action) => {
       return {
         ...state,
         error: action.payload,
@@ -69,10 +82,9 @@ export const reducer = handleActions(
 )
 
 // Selectors
-let selectorPrefix = 'createPost'
 export const selectors = {
-  [`${selectorPrefix}Data`]: (state) => (state[namespace].data),
-  [`${selectorPrefix}Pending`]: (state) => (state[namespace].pending),
-  [`${selectorPrefix}Fulfilled`]: (state) => (state[namespace].fulfilled),
-  [`${selectorPrefix}Rejected`]: (state)  => (state[namespace].rejected),
+  [`${ACTION_NAME}Data`]: (state) => (state[namespace].data),
+  [`${ACTION_NAME}Pending`]: (state) => (state[namespace].pending),
+  [`${ACTION_NAME}Fulfilled`]: (state) => (state[namespace].fulfilled),
+  [`${ACTION_NAME}Rejected`]: (state)  => (state[namespace].rejected),
 }

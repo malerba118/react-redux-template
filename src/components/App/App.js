@@ -58,7 +58,7 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   let entitySnapshot = new EntitySnapshot(state)
-  let query = querySelectors.getAllPostIds(state)
+  let query = querySelectors.getIds(state, 'Post', 'all')
   return {
     posts: entitySnapshot.getPostsById(query),
     isGetPostsPending: apiSelectors.getPostsPending(state)
