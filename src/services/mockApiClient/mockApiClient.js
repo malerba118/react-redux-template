@@ -4,6 +4,7 @@ import allPosts from './posts.json'
 let posts = allPosts.slice(0, 10)
 
 const TIMEOUT_MS = 1000
+const token = '12345'
 
 class MockApiClient {
 
@@ -19,10 +20,12 @@ class MockApiClient {
     this.headers['Authorization'] = `Bearer ${token.token}`
   }
 
-  async logIn ({email, password}) {
+  async logIn (email, password) {
     await utils.timeout(TIMEOUT_MS)
-    if (email != null && password != null) {
-      this.setToken('12345')
+    this.setToken(token)
+    return {
+      token,
+      user: users[0]
     }
   }
 
