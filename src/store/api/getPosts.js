@@ -20,9 +20,6 @@ const action = () => {
     })
       .then(data => {
         let posts = data.value
-        console.log('HERRREEEE')
-
-        console.log(posts)
         let normalizedData = normalize(posts, [schemas.PostSchema])
         dispatch(
           dbActions.updateEntities(normalizedData.entities)

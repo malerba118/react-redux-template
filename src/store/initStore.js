@@ -5,6 +5,13 @@ import promiseMiddleware from 'redux-promise-middleware'
 import { reducers as queryReducers } from './queries'
 import { reducers as apiReducers } from './api'
 import { reducer as dbReducer } from './db'
+import {
+  reducers as otherReducers,
+} from './other'
+import {
+  selectors as sessionSelectors,
+  namespace as sessionNamespace
+} from './other/session'
 import { loadState, saveState } from './localStorage'
 import throttle from 'lodash/throttle'
 
@@ -16,6 +23,7 @@ if (process.env.NODE_ENV !== 'production') {
 const rootReducer = combineReducers({
   ...apiReducers,
   ...queryReducers,
+  ...otherReducers,
   entities: dbReducer
 })
 
@@ -29,8 +37,9 @@ const initStore = () => {
   )
 
   store.subscribe(throttle(() => {
+    let state = store.getState()
     saveState({
-      session: store.getState().session,
+      [sessionNamespace]: sessionSelectors.getSession(state),
     })
   }, 1000))
 

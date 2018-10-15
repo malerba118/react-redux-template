@@ -1,5 +1,6 @@
 import * as getPostsDuck from './getPosts'
 import * as createPostDuck from './createPost'
+import * as logInDuck from './logIn'
 
 /*
 *  The api module maintains async action info such as promise
@@ -9,7 +10,8 @@ import * as createPostDuck from './createPost'
 
 let ducks = [
   getPostsDuck,
-  createPostDuck
+  createPostDuck,
+  logInDuck,
 ]
 
 export const reducers = ducks.reduce(

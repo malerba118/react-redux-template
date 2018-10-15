@@ -1,13 +1,14 @@
-import * as queriesDuck from './queries'
-
-let ducks = [
-  queriesDuck,
-]
+import * as sessionDuck from './session'
 
 /*
-*  The queries module maintains what we should be fetching
-*  from the db module via the result feild of normalized data.
+*  The api module maintains async action info such as promise
+*  state, data, and errors. Api results can also be used to query
+*  the db module in cases where it makes sense.
 */
+
+let ducks = [
+  sessionDuck,
+]
 
 export const reducers = ducks.reduce(
   (reducerMap, duck) => {
