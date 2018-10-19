@@ -6,7 +6,7 @@ import {
 } from 'store/api'
 import { EntitySnapshot } from 'store/db'
 import { selectors as sessionSelectors } from 'store/other/session'
-import { Redirect, withRouter } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import { TextField, Button } from '@material-ui/core'
 
 import styles from './LoginPage.module.css'
@@ -72,4 +72,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(LoginPage))
+)(LoginPage)

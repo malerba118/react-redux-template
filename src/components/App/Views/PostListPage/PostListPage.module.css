@@ -1,0 +1,26 @@
+.pageLoading {
+  composes: fit-viewport-body from global;
+  composes: children-center from global;
+  composes: fade-in from global;
+}
+
+.pageContainer {
+  composes: fade-in from global;
+  padding: 24px;
+}
+
+.pagination {
+  display: flex;
+  padding: 24px;
+}
+
+.paginationButton {
+  background-color: white;
+  width: 64px;
+  height: 64px;
+}
+
+.paginationButtonActive {
+  composes: backgroundPrimary from global;
+  color: white;
+}

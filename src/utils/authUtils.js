@@ -5,9 +5,9 @@ export const isAuthenticated = (session) => {
 }
 
 export const isAuthor = (user) => {
-  return return user.roles.includes(rolesEnum.AUTHOR)
+  return user.roles.includes(rolesEnum.AUTHOR)
 }
 
 export const isAdmin = (user) => {
-  return return user.roles.includes(rolesEnum.AUTHOR)
+  return user.roles.includes(rolesEnum.ADMIN)
 }

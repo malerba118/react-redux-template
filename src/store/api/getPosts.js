@@ -3,7 +3,7 @@ import { createAsyncAction } from 'redux-promise-middleware-actions'
 import mockApiClient from 'services/mockApiClient'
 import { schemas, actions as dbActions } from '../db'
 import { actions as queryActions } from '../queries'
-import { normalize } from 'normalizr'
+import { normalize, denormalize } from 'normalizr'
 
 // Action types
 const ACTION_NAME = 'getPosts'
@@ -11,23 +11,24 @@ const ACTION_NAME = 'getPosts'
 // Reducer namespace
 export const namespace = `api/GET_POSTS`
 
+const responseSchema = {
+  posts: [schemas.PostSchema]
+}
+
 // Actions
-const action = () => {
+const action = (options) => {
  return dispatch => {
     return dispatch({
       type: namespace,
-      payload: mockApiClient.getPosts()
+      payload: mockApiClient.getPosts(options)
+        .then(data => {
+          let normalizedData = normalize(data, responseSchema)
+          dispatch(
+            dbActions.updateEntities(normalizedData.entities)
+          )
+          return normalizedData.result
+        })
     })
-      .then(data => {
-        let posts = data.value
-        let normalizedData = normalize(posts, [schemas.PostSchema])
-        dispatch(
-          dbActions.updateEntities(normalizedData.entities)
-        )
-        dispatch(
-          queryActions.setIds({entity: 'Post', tag: 'all', ids: normalizedData.result})
-        )
-      })
   }
 }
 
@@ -82,7 +83,9 @@ export const reducer = handleActions(
 
 // Selectors
 export const selectors = {
-  [`${ACTION_NAME}Data`]: (state) => (state[namespace].data),
+  [`${ACTION_NAME}Data`]: (state) => {
+    return denormalize(state[namespace].data, responseSchema, state.entities)
+  },
   [`${ACTION_NAME}Pending`]: (state) => (state[namespace].pending),
   [`${ACTION_NAME}Fulfilled`]: (state) => (state[namespace].fulfilled),
   [`${ACTION_NAME}Rejected`]: (state)  => (state[namespace].rejected),

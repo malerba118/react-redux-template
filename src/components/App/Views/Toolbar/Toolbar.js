@@ -7,6 +7,8 @@ import {
 import { selectors as sessionSelectors } from 'store/other/session'
 import { Switch, Route, withRouter } from 'react-router-dom'
 import { Grid, Button } from '@material-ui/core'
+import { isAuthenticated } from 'utils/authUtils'
+import { FlatButton } from 'components/Universal'
 
 import styles from './Toolbar.module.css';
 
@@ -21,14 +23,23 @@ class Toolbar extends Component {
   }
 
   render() {
+    const isAuthed = isAuthenticated(this.props.session)
     return (
       <div className={styles.Toolbar}>
-        <span>
+        <FlatButton
+          className={styles.toolbarButton}
+        >
           Sample App
-        </span>
-        <Button onClick={this.logOut}>
-          Log Out
-        </Button>
+        </FlatButton>
+        {isAuthed && (
+          <FlatButton
+            hoverTone="dark"
+            className={styles.toolbarButton}
+            onClick={this.logOut}
+          >
+            Log Out
+          </FlatButton>
+        )}
       </div>
     )
   }

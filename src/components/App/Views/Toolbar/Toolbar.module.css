@@ -10,6 +10,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 16px;
   z-index: 1;
+}
+
+.toolbarButton {
+  height: 100%;
 }

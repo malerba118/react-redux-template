@@ -6,6 +6,7 @@ import {
 } from 'store/api'
 import { selectors as sessionSelectors } from 'store/other/session'
 import { Switch, Route, withRouter } from 'react-router-dom'
+import Moment from 'react-moment'
 import { Card, CardActionArea, CardContent, CardActions, CardMedia, Typography, Button, Grid } from '@material-ui/core'
 
 import styles from './PostCard.module.css'; // Import css modules stylesheet as styles
@@ -22,7 +23,7 @@ class PostCard extends Component {
             height: 300,
           }}
           image={post.image}
-          title="Contemplative Reptile"
+          title="Blog Post"
         />
         <CardContent>
           <Grid container>
@@ -39,7 +40,7 @@ class PostCard extends Component {
               <br/>
               <br/>
               <div className={styles.cardDate}>
-                Jun 26, 2018
+                <Moment fromNow ago>{post.timestamp}</Moment> ago
               </div>
             </Grid>
           </Grid>

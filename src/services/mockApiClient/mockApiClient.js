@@ -29,9 +29,14 @@ class MockApiClient {
     }
   }
 
-  async getPosts () {
+  async getPosts ({page = 0, perPage = 6} = {}) {
     await utils.timeout(TIMEOUT_MS)
-    return posts
+    return {
+      page,
+      perPage,
+      numPages: Math.ceil(posts.length / perPage),
+      posts: posts.slice(page * perPage, page * perPage + perPage)
+    }
   }
 
   async createPost ( {id, title, author} = {} ) {
