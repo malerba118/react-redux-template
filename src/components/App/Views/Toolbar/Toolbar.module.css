@@ -1,0 +1,15 @@
+
+.Toolbar {
+  composes: border-bottom from global;
+  composes: appBackgroundColor from global;
+  height: 64px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  z-index: 1;
+}

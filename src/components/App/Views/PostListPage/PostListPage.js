@@ -9,6 +9,7 @@ import { selectors as querySelectors } from 'store/queries'
 import { selectors as sessionSelectors } from 'store/other/session'
 import { Redirect } from 'react-router-dom'
 import { Grid } from '@material-ui/core'
+import PostCard from 'components/App/Shared/PostCard/PostCard'
 
 class PostListPage extends Component {
 
@@ -23,17 +24,12 @@ class PostListPage extends Component {
     }
     return (
       <div>
-        <Grid container>
-          <Grid item xs={12} md={6}>
-            <div>Post List</div>
-          </Grid>
-          <Grid item xs={12} md={6}>
+        <Grid container style={{padding: 24}}>
             {this.props.posts.map((post) => (
-              <p key={post.id}>
-                {post.title} - {post.author && post.author.name}
-              </p>
+              <Grid style={{padding: 24}} item xs={12} sm={6} lg={4}>
+                <PostCard post={post} />
+              </Grid>
             ))}
-          </Grid>
         </Grid>
       </div>
     )

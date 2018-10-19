@@ -10,7 +10,8 @@ let queries = {
 export const namespace = `queries`
 
 export const actions = {
-  addIds: createAction('ADD_IDS')
+  addIds: createAction('ADD_IDS'),
+  setIds: createAction('SET_IDS'),
 }
 
 let initialState = {
@@ -33,6 +34,25 @@ export const reducer = handleActions(
             [payload.entity]: {
               ...state[payload.entity],
               [payload.tag]: [...state[payload.entity][payload.tag], ...payload.ids]
+            },
+          }
+        }
+      }
+      throw new Error('Entity and/or tag does not exist.')
+    },
+    [actions.setIds]: (state, action) => {
+      let payload = action.payload
+      if (!payload.ids instanceof Array) {
+        throw new Error('Ids must be an Array.')
+      }
+      let queryEntity = queries[payload.entity]
+      if (queryEntity != null) {
+        if (queryEntity.tags.includes(payload.tag)) {
+          return {
+            ...state,
+            [payload.entity]: {
+              ...state[payload.entity],
+              [payload.tag]: payload.ids
             },
           }
         }

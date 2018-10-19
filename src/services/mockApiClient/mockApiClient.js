@@ -42,6 +42,7 @@ class MockApiClient {
   }
 
   async logOut () {
+    await utils.timeout(TIMEOUT_MS)
     delete this.token
     delete this.headers.Authorization
   }

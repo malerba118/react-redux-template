@@ -5,29 +5,21 @@ import { schemas, actions as dbActions } from '../db'
 import { actions as queryActions } from '../queries'
 import { normalize } from 'normalizr'
 
+
 // Action types
-const ACTION_NAME = 'getPosts'
+const ACTION_NAME = 'logOut'
 
 // Reducer namespace
-export const namespace = `api/GET_POSTS`
+export const namespace = `api/LOG_OUT`
+
 
 // Actions
-const action = () => {
+const action = (email, password) => {
  return dispatch => {
     return dispatch({
       type: namespace,
-      payload: mockApiClient.getPosts()
+      payload: mockApiClient.logOut(email, password)
     })
-      .then(data => {
-        let posts = data.value
-        let normalizedData = normalize(posts, [schemas.PostSchema])
-        dispatch(
-          dbActions.updateEntities(normalizedData.entities)
-        )
-        dispatch(
-          queryActions.setIds({entity: 'Post', tag: 'all', ids: normalizedData.result})
-        )
-      })
   }
 }
 

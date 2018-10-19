@@ -1,0 +1,23 @@
+.cardTitle {
+  composes: text-truncate from global;
+  composes: text-md from global;
+  text-transform: capitalize;
+}
+
+.cardAuthor {
+  composes: text-truncate from global;
+  composes: text-sm from global;
+  composes: text-grey-6 from global;
+}
+
+.cardDate {
+  composes: text-truncate from global;
+  composes: text-sm from global;
+  composes: text-grey-6 from global;
+  text-align: end;
+}
+
+.cardContentDivider {
+  composes: border-bottom from global;
+  margin: 0 24px;
+}

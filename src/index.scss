@@ -1,0 +1,85 @@
+$APP_BACKGROUND_COLOR: #e8f1f2;
+$BORDER_COLOR: rgba(0,0,0,0.06);
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: $APP_BACKGROUND_COLOR;
+  font-family: 'Josefin Sans',sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+:global {
+
+  .fit-viewport-body {
+    height: calc(100vh - 64px);
+    width: 100%;
+  }
+
+  .children-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .border-bottom {
+    border-bottom: 1px solid $BORDER_COLOR;
+  }
+
+  .border-top {
+    border-top: 1px solid $BORDER_COLOR;
+  }
+
+  .border-left {
+    border-left: 1px solid $BORDER_COLOR;
+  }
+
+  .border-right {
+    border-right: 1px solid $BORDER_COLOR;
+  }
+
+  .border-all {
+    border: 1px solid $BORDER_COLOR;
+  }
+
+  .appBackgroundColor {
+    background-color: $APP_BACKGROUND_COLOR;
+  }
+
+  .text-truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .text-grey-6 {
+    color: rgba(0,0,0,.6);
+  }
+
+  .text-xs {
+    font-size: 10px;
+  }
+
+  .text-sm {
+    font-size: 12px;
+  }
+
+  .text-md {
+    font-size: 14px;
+  }
+
+  .text-lg {
+    font-size: 18px;
+  }
+
+  .text-xl {
+    font-size: 24px;
+  }
+
+}

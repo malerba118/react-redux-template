@@ -20,10 +20,12 @@ export const reducer = handleActions(
   {
     [apiActions.logIn.FULFILLED]: (state, action) => {
       return {
-        ...state,
         token: action.payload.token,
         user: action.payload.user,
       }
+    },
+    [apiActions.logOut.FULFILLED]: (state, action) => {
+      return null
     },
   },
   initialState

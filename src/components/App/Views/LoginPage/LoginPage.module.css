@@ -1,0 +1,11 @@
+
+.root {
+  composes: fit-viewport-body from global;
+  composes: children-center from global;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+}

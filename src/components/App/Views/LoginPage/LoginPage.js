@@ -6,9 +6,10 @@ import {
 } from 'store/api'
 import { EntitySnapshot } from 'store/db'
 import { selectors as sessionSelectors } from 'store/other/session'
-import { Redirect } from 'react-router-dom'
-import { Grid, TextField, Button } from '@material-ui/core'
+import { Redirect, withRouter } from 'react-router-dom'
+import { TextField, Button } from '@material-ui/core'
 
+import styles from './LoginPage.module.css'
 
 class LoginPage extends Component {
 
@@ -27,46 +28,32 @@ class LoginPage extends Component {
     return this.props.logIn(
       this.state.email,
       this.state.password
-    )
+    ).then(() => {
+      this.props.history.push('/')
+    })
   }
 
   render() {
-    if (this.props.session !== null) {
-      return <Redirect to="/"/>
-    }
+    // if (this.props.session !== null) {
+    //   return <Redirect to="/"/>
+    // }
     return (
-      <div style={{height: '100vh'}} >
-        <Grid style={{height: '100%'}} container justify="center" alignItems="center">
-          <Grid item xs={12}>
-            <form>
-              <Grid container justify="center">
-                <Grid item xs={12}>
-                  <TextField
-                    id="standard-password-input"
-                    label="Email"
-                    type="email"
-                    margin="normal"
-                    value={this.state.email}
-                    onChange={(e) => this.onInputChange('email', e.target.value)}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    id="standard-password-input"
-                    label="Password"
-                    type="password"
-                    margin="normal"
-                    value={this.state.password}
-                    onChange={(e) => this.onInputChange('password', e.target.password)}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <Button onClick={this.logIn}>Log In</Button>
-                </Grid>
-              </Grid>
-            </form>
-          </Grid>
-        </Grid>
+      <div className={styles.root}>
+        <form className={styles.loginForm}>
+          <TextField
+            label="Email"
+            type="email"
+            margin="normal"
+            onChange={(e) => this.onInputChange('email', e.target.value)}
+          />
+          <TextField
+            label="Password"
+            type="password"
+            margin="normal"
+            onChange={(e) => this.onInputChange('password', e.target.password)}
+          />
+          <Button color="primary" onClick={this.logIn}>Log In</Button>
+        </form>
       </div>
     )
   }
@@ -85,4 +72,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(LoginPage)
+)(withRouter(LoginPage))
