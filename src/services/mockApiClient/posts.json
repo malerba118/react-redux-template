@@ -5,7 +5,7 @@
       "name": "Leanne Graham",
       "username": "Bret",
       "email": "Sincere@april.biz",
-      "roles": ["ADMIN"],
+      "roles": ["Admin"],
       "address": {
         "street": "Kulas Light",
         "suite": "Apt. 556",
@@ -37,7 +37,7 @@
       "name": "Leanne Graham",
       "username": "Bret",
       "email": "Sincere@april.biz",
-      "roles": ["ADMIN"],
+      "roles": ["Admin"],
       "address": {
         "street": "Kulas Light",
         "suite": "Apt. 556",
@@ -69,7 +69,7 @@
       "name": "Leanne Graham",
       "username": "Bret",
       "email": "Sincere@april.biz",
-      "roles": ["ADMIN"],
+      "roles": ["Admin"],
       "address": {
         "street": "Kulas Light",
         "suite": "Apt. 556",
@@ -101,7 +101,7 @@
       "name": "Ervin Howell",
       "username": "Antonette",
       "email": "Shanna@melissa.tv",
-      "roles": ["ADMIN"],
+      "roles": ["Admin"],
       "address": {
         "street": "Victor Plains",
         "suite": "Suite 879",
@@ -133,7 +133,7 @@
       "name": "Ervin Howell",
       "username": "Antonette",
       "email": "Shanna@melissa.tv",
-      "roles": ["ADMIN"],
+      "roles": ["Admin"],
       "address": {
         "street": "Victor Plains",
         "suite": "Suite 879",
@@ -165,7 +165,7 @@
       "name": "Ervin Howell",
       "username": "Antonette",
       "email": "Shanna@melissa.tv",
-      "roles": ["ADMIN"],
+      "roles": ["Admin"],
       "address": {
         "street": "Victor Plains",
         "suite": "Suite 879",
@@ -197,7 +197,7 @@
       "name": "Ervin Howell",
       "username": "Antonette",
       "email": "Shanna@melissa.tv",
-      "roles": ["ADMIN"],
+      "roles": ["Admin"],
       "address": {
         "street": "Victor Plains",
         "suite": "Suite 879",
@@ -229,7 +229,7 @@
       "name": "Ervin Howell",
       "username": "Antonette",
       "email": "Shanna@melissa.tv",
-      "roles": ["ADMIN"],
+      "roles": ["Admin"],
       "address": {
         "street": "Victor Plains",
         "suite": "Suite 879",
@@ -261,7 +261,7 @@
       "name": "Clementine Bauch",
       "username": "Samantha",
       "email": "Nathan@yesenia.net",
-      "roles": ["AUTHOR"],
+      "roles": ["Author"],
       "address": {
         "street": "Douglas Extension",
         "suite": "Suite 847",
@@ -293,7 +293,7 @@
       "name": "Clementine Bauch",
       "username": "Samantha",
       "email": "Nathan@yesenia.net",
-      "roles": ["AUTHOR"],
+      "roles": ["Author"],
       "address": {
         "street": "Douglas Extension",
         "suite": "Suite 847",

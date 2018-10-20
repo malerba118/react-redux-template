@@ -22,23 +22,37 @@ class Toolbar extends Component {
       })
   }
 
+  goTo = (path) => {
+    this.props.history.push(path)
+  }
+
   render() {
     const isAuthed = isAuthenticated(this.props.session)
     return (
       <div className={styles.Toolbar}>
         <FlatButton
           className={styles.toolbarButton}
+          onClick={() => this.goTo('/')}
         >
           Sample App
         </FlatButton>
         {isAuthed && (
-          <FlatButton
-            hoverTone="dark"
-            className={styles.toolbarButton}
-            onClick={this.logOut}
-          >
-            Log Out
-          </FlatButton>
+          <div className={styles.right}>
+            <FlatButton
+              hoverTone="dark"
+              className={styles.toolbarButton}
+              onClick={() => this.goTo('/favorites')}
+            >
+              Favorites
+            </FlatButton>
+            <FlatButton
+              hoverTone="dark"
+              className={styles.toolbarButton}
+              onClick={this.logOut}
+            >
+              Log Out
+            </FlatButton>
+          </div>
         )}
       </div>
     )

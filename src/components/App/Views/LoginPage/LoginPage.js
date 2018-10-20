@@ -4,7 +4,6 @@ import {
   actions as apiActions,
   selectors as apiSelectors
 } from 'store/api'
-import { EntitySnapshot } from 'store/db'
 import { selectors as sessionSelectors } from 'store/other/session'
 import { Redirect } from 'react-router-dom'
 import { TextField, Button } from '@material-ui/core'

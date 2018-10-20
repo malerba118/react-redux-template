@@ -24,9 +24,13 @@ const action = (postId) => {
         dispatch(
           dbActions.updateEntities(normalizedData.entities)
         )
-        // dispatch(
-        //   queryActions.addIds({entity: 'Post', tag: 'my-favorites', ids: [normalizedData.result]})
-        // )
+        dispatch(
+          queryActions.removeIds({
+            entity: 'Post',
+            tag: 'my-favorites',
+            ids: [postId]
+          })
+        )
       })
   }
 }

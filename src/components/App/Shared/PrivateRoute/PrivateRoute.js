@@ -13,7 +13,7 @@ const FORBIDDEN_PATH = '/forbidden'
 //
 // <PrivateRoute
 //   path="/admin"
-//   permittedRoles={[constants.userRoles.ADMIN]}
+//   permittedRoles={[constants.userRoles.Admin]}
 //   component={AdminPage}
 // />
 class PrivateRoute extends React.Component {

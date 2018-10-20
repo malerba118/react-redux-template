@@ -1,4 +1,5 @@
 import * as getPostsDuck from './getPosts'
+import * as getMyFavoritePostsDuck from './getMyFavoritePosts'
 import * as createPostDuck from './createPost'
 import * as logInDuck from './logIn'
 import * as logOutDuck from './logOut'
@@ -19,6 +20,7 @@ let ducks = [
   logOutDuck,
   likePostDuck,
   unlikePostDuck,
+  getMyFavoritePostsDuck,
 ]
 
 export const reducers = ducks.reduce(

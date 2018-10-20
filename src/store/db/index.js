@@ -1,4 +1,4 @@
-import EntitySnapshot from './dbSelectors'
+import * as selectors from './selectors'
 import * as schemas from './schemas'
 import reducer from './reducer'
 import * as actions from './actions'
@@ -8,7 +8,7 @@ import * as actions from './actions'
 *  provides an interface to fetch it. It maintains normalized entities.
 */
 export {
-  EntitySnapshot,
+  selectors,
   schemas,
   reducer,
   actions,

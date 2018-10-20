@@ -1,8 +1,9 @@
 import { handleActions, createAction } from 'redux-actions'
+import { createSelector } from 'reselect'
 
 let queries = {
-  'Post': {
-    tags: ['all']
+  Post: {
+    tags: ['my-favorites']
   }
 }
 
@@ -12,12 +13,39 @@ export const namespace = `queries`
 export const actions = {
   addIds: createAction('ADD_IDS'),
   setIds: createAction('SET_IDS'),
+  removeIds: createAction('REMOVE_IDS'),
 }
 
 let initialState = {
   Post: {
-    all: [],
-    mine: [],
+    'my-favorites': [],
+  }
+}
+
+const validatePayload = (payload) => {
+  // Right now all actions take same payload so this works, may need
+  // to add more parameters to this if action contracts start differing
+  if (!payload) {
+    return {
+      valid: false,
+      message: 'Payload must contain entity, tag, and ids'
+    }
+  }
+  if (!payload.ids instanceof Array) {
+    return {
+      valid: false,
+      message: 'Ids must be an Array.'
+    }
+  }
+  let queryEntity = queries[payload.entity]
+  if (queryEntity == null || !queryEntity.tags.includes(payload.tag)) {
+    return {
+      valid: false,
+      message: 'Entity and/or tag does not exist.'
+    }
+  }
+  return {
+    valid: true,
   }
 }
 
@@ -25,44 +53,67 @@ let initialState = {
 export const reducer = handleActions(
   {
     [actions.addIds]: (state, action) => {
-      let payload = action.payload
-      let queryEntity = queries[payload.entity]
-      if (queryEntity != null) {
-        if (queryEntity.tags.includes(payload.tag)) {
-          return {
-            ...state,
-            [payload.entity]: {
-              ...state[payload.entity],
-              [payload.tag]: [...state[payload.entity][payload.tag], ...payload.ids]
-            },
-          }
+      let validation = validatePayload(action.payload)
+      if (validation.valid) {
+        let {ids, entity, tag} = action.payload
+        return {
+          ...state,
+          [entity]: {
+            ...state[entity],
+            [tag]: [...state[entity][tag], ...ids]
+          },
         }
       }
-      throw new Error('Entity and/or tag does not exist.')
+      else {
+        throw new Error(validation.message)
+      }
     },
     [actions.setIds]: (state, action) => {
-      let payload = action.payload
-      if (!payload.ids instanceof Array) {
-        throw new Error('Ids must be an Array.')
-      }
-      let queryEntity = queries[payload.entity]
-      if (queryEntity != null) {
-        if (queryEntity.tags.includes(payload.tag)) {
-          return {
-            ...state,
-            [payload.entity]: {
-              ...state[payload.entity],
-              [payload.tag]: payload.ids
-            },
-          }
+      let validation = validatePayload(action.payload)
+      if (validation.valid) {
+        let {ids, entity, tag} = action.payload
+        return {
+          ...state,
+          [entity]: {
+            ...state[entity],
+            [tag]: ids
+          },
         }
       }
-      throw new Error('Entity and/or tag does not exist.')
+      else {
+        throw new Error(validation.message)
+      }
+    },
+    [actions.removeIds]: (state, action) => {
+      let validation = validatePayload(action.payload)
+      if (validation.valid) {
+        let {ids, entity, tag} = action.payload
+        return {
+          ...state,
+          [entity]: {
+            ...state[entity],
+            [tag]: state[entity][tag].filter(id => !ids.includes(id))
+          },
+        }
+      }
+      else {
+        throw new Error(validation.message)
+      }
     },
   },
   initialState
 )
 
+const getQueries = state => state[namespace]
+
 export const selectors = {
-  getIds: (state, entity, tag) => state[namespace][entity][tag],
+  createIdsSelector: (entity, tag) => {
+    let selector = createSelector(
+        getQueries,
+        queries => {
+            return queries[entity][tag]
+        }
+    )
+    return selector
+  },
 }

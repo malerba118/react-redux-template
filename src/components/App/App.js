@@ -6,8 +6,8 @@ import {
 } from 'store/api'
 import { Switch, Route } from 'react-router-dom'
 import { PrivateRoute } from 'components/App/Shared'
-import { LoginPage, PostListPage, AdminPage, Forbidden, Toolbar } from './Views'
-import { rolesEnum } from 'enums/authEnums'
+import { LoginPage, PostListPage, FavoritePostsPage, AdminPage, Forbidden, Toolbar } from './Views'
+import { rolesEnum } from 'enums'
 import { MuiThemeProvider } from '@material-ui/core/styles'
 import theme from './theme'
 
@@ -27,13 +27,19 @@ class App extends Component {
               component={LoginPage}
             />
             <PrivateRoute
-              permittedRoles={[rolesEnum.ADMIN, rolesEnum.AUTHOR]}
+              permittedRoles={[rolesEnum.Admin, rolesEnum.Author]}
               exact
               path="/"
               component={PostListPage}
             />
             <PrivateRoute
-              permittedRoles={[rolesEnum.ADMIN]}
+              permittedRoles={[rolesEnum.Admin, rolesEnum.Author]}
+              exact
+              path="/favorites"
+              component={FavoritePostsPage}
+            />
+            <PrivateRoute
+              permittedRoles={[rolesEnum.Admin]}
               exact
               path="/admin"
               component={AdminPage}

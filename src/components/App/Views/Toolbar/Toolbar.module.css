@@ -16,3 +16,8 @@
 .toolbarButton {
   height: 100%;
 }
+
+.right {
+  display: flex;
+  height: 100%;
+}
