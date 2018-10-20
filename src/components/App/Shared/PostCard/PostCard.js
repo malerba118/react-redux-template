@@ -8,6 +8,8 @@ import { selectors as sessionSelectors } from 'store/other/session'
 import { Switch, Route, withRouter } from 'react-router-dom'
 import Moment from 'react-moment'
 import { Card, CardActionArea, CardContent, CardActions, CardMedia, Typography, Button, Grid } from '@material-ui/core'
+import EmptyHeartIcon from '@material-ui/icons/FavoriteBorder'
+import HeartIcon from '@material-ui/icons/Favorite'
 
 import styles from './PostCard.module.css'; // Import css modules stylesheet as styles
 
@@ -53,10 +55,27 @@ class PostCard extends Component {
           <Button size="small" color="primary">
             Learn More
           </Button>
+          <div style={{flex: 1}}></div>
+          {this.props.liked && <HeartIcon className={styles.heartIcon} onClick={() => this.props.unlikePost(post.id)}/>}
+          {!this.props.liked && <EmptyHeartIcon className={styles.heartIcon} onClick={() => this.props.likePost(post.id)}/>}
         </CardActions>
       </Card>
     )
   }
 }
 
-export default PostCard
+const mapStateToProps = (state) => {
+  return {
+
+  }
+}
+
+const mapDispatchToProps = {
+  likePost: apiActions.likePost,
+  unlikePost: apiActions.unlikePost,
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PostCard)

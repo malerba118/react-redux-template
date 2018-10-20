@@ -66,7 +66,7 @@ class PostListPage extends Component {
   render() {
     let pageLoading = this.props.getPostsPending || this.props.postsPage.posts == null
     return (
-      <Loading loading={pageLoading} minTime={500}>
+      <Loading loading={pageLoading} minTime={1000}>
         {ready => {
           if (!ready) {
             return (
@@ -79,10 +79,10 @@ class PostListPage extends Component {
             <Grid container className={styles.pageContainer}>
                 {this.props.postsPage.posts.map((post) => (
                   <Grid style={{padding: 24}} item xs={12} sm={6} lg={4}>
-                    <PostCard post={post} />
+                    <PostCard post={post} liked={post.likes.includes(this.props.session.user.id)}/>
                   </Grid>
                 ))}
-                <Grid item xs={12} sm={6} lg={4}>
+                <Grid item xs={12}>
                   <div className={styles.pagination}>
                     {range(this.props.postsPage.numPages).map((i) => (
                       <FlatButton

@@ -2,6 +2,8 @@ import * as getPostsDuck from './getPosts'
 import * as createPostDuck from './createPost'
 import * as logInDuck from './logIn'
 import * as logOutDuck from './logOut'
+import * as likePostDuck from './likePost'
+import * as unlikePostDuck from './unlikePost'
 
 
 /*
@@ -15,6 +17,8 @@ let ducks = [
   createPostDuck,
   logInDuck,
   logOutDuck,
+  likePostDuck,
+  unlikePostDuck,
 ]
 
 export const reducers = ducks.reduce(

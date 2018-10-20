@@ -3,8 +3,9 @@ import users from './users.json'
 import allPosts from './posts.json'
 let posts = allPosts.slice(0, 10)
 
-const TIMEOUT_MS = 1000
+const TIMEOUT_MS = 100
 const token = '12345'
+const loggedInUser = users[0]
 
 class MockApiClient {
 
@@ -25,7 +26,7 @@ class MockApiClient {
     this.setToken(token)
     return {
       token,
-      user: users[0]
+      user: loggedInUser
     }
   }
 
@@ -44,6 +45,25 @@ class MockApiClient {
     let newPost = {id, title, author}
     posts.push(newPost)
     return newPost
+  }
+
+  async likePost (id) {
+    await utils.timeout(TIMEOUT_MS)
+    let post = posts.find((p) => p.id === id)
+    if (post) {
+      // Normally user would be inferred from auth token
+      post.likes = [loggedInUser.id]
+    }
+    return post
+  }
+
+  async unlikePost (id) {
+    await utils.timeout(TIMEOUT_MS)
+    let post = posts.find((p) => p.id === id)
+    if (post) {
+      post.likes = []
+    }
+    return post
   }
 
   async logOut () {

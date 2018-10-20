@@ -21,3 +21,7 @@
   composes: border-bottom from global;
   margin: 0 24px;
 }
+
+.heartIcon {
+  composes: textPrimary from global;
+}
