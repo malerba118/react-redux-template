@@ -1,7 +1,11 @@
 import { handleActions } from 'redux-actions'
 import { createAsyncAction } from 'redux-promise-middleware-actions'
 import mockApiClient from 'services/mockApiClient'
-import { schemas, actions as dbActions } from '../db'
+import {
+  schemas,
+  actions as dbActions,
+  selectors as dbSelectors
+} from '../db'
 import { actions as queryActions } from '../queries'
 import { normalize, denormalize } from 'normalizr'
 
@@ -26,9 +30,6 @@ const action = (options) => {
           dispatch(
             dbActions.updateEntities(normalizedData.entities)
           )
-          // dispatch(
-          //   queryActions.setIds({entity: 'Post', tag: 'all', ids:normalizedData.result.posts})
-          // )
           return normalizedData.result
         })
     })
@@ -87,7 +88,7 @@ export const reducer = handleActions(
 // Selectors
 export const selectors = {
   [`${ACTION_NAME}Data`]: (state) => {
-    return denormalize(state[namespace].data, responseSchema, state.entities)
+    return denormalize(state[namespace].data, responseSchema, dbSelectors.getEntities(state))
   },
   [`${ACTION_NAME}Pending`]: (state) => (state[namespace].pending),
   [`${ACTION_NAME}Fulfilled`]: (state) => (state[namespace].fulfilled),

@@ -11,6 +11,7 @@ import { rolesEnum } from 'enums'
 import { MuiThemeProvider } from '@material-ui/core/styles'
 import theme from './theme'
 
+import './styles/global.css'
 import styles from './App.module.css'; // Import css modules stylesheet as styles
 
 class App extends Component {

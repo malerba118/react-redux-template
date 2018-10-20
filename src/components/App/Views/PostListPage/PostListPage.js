@@ -118,8 +118,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   getPosts: apiActions.getPosts,
-  createPost: apiActions.createPost,
-  logIn: apiActions.logIn,
 }
 
 export default connect(

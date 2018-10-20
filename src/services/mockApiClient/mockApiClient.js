@@ -42,16 +42,7 @@ class MockApiClient {
 
   async getMyFavoritePosts() {
     await utils.timeout(TIMEOUT_MS)
-    console.log(posts)
-    console.log(loggedInUser.id)
     return posts.filter(post => post.likes.includes(loggedInUser.id))
-  }
-
-  async createPost ( {id, title, author} = {} ) {
-    await utils.timeout(TIMEOUT_MS)
-    let newPost = {id, title, author}
-    posts.push(newPost)
-    return newPost
   }
 
   async likePost (id) {
