@@ -35,6 +35,13 @@ class FavoritePostsPage extends Component {
               </div>
             )
           }
+          if (this.props.posts.length === 0) {
+            return (
+              <div className={styles.noPostsToShow}>
+                <span>You have not favorited any posts.</span>
+              </div>
+            )
+          }
           return (
             <Grid container className={styles.pageContainer}>
                 {this.props.posts.map((post) => (

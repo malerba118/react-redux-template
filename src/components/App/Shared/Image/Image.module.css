@@ -18,7 +18,7 @@
 }
 
 .zoomImgOnHover img:hover {
-  transform: scale(1.03);
+  transform: scale(1.02);
 }
 
 .loader {
