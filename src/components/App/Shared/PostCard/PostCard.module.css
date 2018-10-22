@@ -4,6 +4,10 @@
   text-transform: capitalize;
 }
 
+.cardImage {
+  height: 300px;
+}
+
 .cardAuthor {
   composes: text-truncate from global;
   composes: text-sm from global;

@@ -7,9 +7,10 @@ import {
 import { selectors as sessionSelectors } from 'store/other/session'
 import { Switch, Route, withRouter } from 'react-router-dom'
 import Moment from 'react-moment'
-import { Card, CardActionArea, CardContent, CardActions, CardMedia, Typography, Button, Grid } from '@material-ui/core'
+import { Card, CardActionArea, CardContent, CardActions, CardMedia, Button, Grid } from '@material-ui/core'
 import EmptyHeartIcon from '@material-ui/icons/FavoriteBorder'
 import HeartIcon from '@material-ui/icons/Favorite'
+import Image from '../Image'
 
 import styles from './PostCard.module.css'; // Import css modules stylesheet as styles
 
@@ -20,13 +21,14 @@ class PostCard extends Component {
     const {post} = this.props
     return (
       <Card elevation={0} square>
-        <CardMedia
+        {/*<CardMedia
           style={{
             height: 300,
           }}
           image={post.image}
           title="Blog Post"
-        />
+        />*/}
+        <Image className={styles.cardImage} zoomOnHover src={post.image}/>
         <CardContent>
           <Grid container>
             <Grid item xs={6}>

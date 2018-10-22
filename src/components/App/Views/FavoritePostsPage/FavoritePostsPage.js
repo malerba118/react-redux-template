@@ -35,10 +35,17 @@ class FavoritePostsPage extends Component {
               </div>
             )
           }
+          if (this.props.posts.length === 0) {
+            return (
+              <div className={styles.noPostsToShow}>
+                <span>You have not favorited any posts.</span>
+              </div>
+            )
+          }
           return (
             <Grid container className={styles.pageContainer}>
                 {this.props.posts.map((post) => (
-                  <Grid style={{padding: 24}} item xs={12} sm={6} lg={4}>
+                  <Grid key={post.id} style={{padding: 24}} item xs={12} sm={6} lg={4}>
                     <PostCard post={post} liked={post.likes.includes(this.props.session.user.id)}/>
                   </Grid>
                 ))}

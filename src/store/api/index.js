@@ -1,6 +1,5 @@
 import * as getPostsDuck from './getPosts'
 import * as getMyFavoritePostsDuck from './getMyFavoritePosts'
-import * as createPostDuck from './createPost'
 import * as logInDuck from './logIn'
 import * as logOutDuck from './logOut'
 import * as likePostDuck from './likePost'
@@ -15,7 +14,6 @@ import * as unlikePostDuck from './unlikePost'
 
 let ducks = [
   getPostsDuck,
-  createPostDuck,
   logInDuck,
   logOutDuck,
   likePostDuck,

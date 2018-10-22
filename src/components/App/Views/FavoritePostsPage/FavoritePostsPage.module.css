@@ -8,3 +8,9 @@
   composes: fade-in from global;
   padding: 24px;
 }
+
+.noPostsToShow {
+  composes: fit-viewport-body from global;
+  composes: children-center from global;
+  composes: fade-in from global;
+}
