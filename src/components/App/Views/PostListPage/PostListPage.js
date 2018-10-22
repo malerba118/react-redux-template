@@ -77,7 +77,7 @@ class PostListPage extends Component {
           return (
             <Grid container className={styles.pageContainer}>
                 {this.props.postsPage.posts.map((post) => (
-                  <Grid style={{padding: 24}} item xs={12} sm={6} lg={4}>
+                  <Grid key={post.id} style={{padding: 24}} item xs={12} sm={6} lg={4}>
                     <PostCard post={post} liked={post.likes.includes(this.props.session.user.id)}/>
                   </Grid>
                 ))}

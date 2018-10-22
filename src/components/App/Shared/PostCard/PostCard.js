@@ -7,7 +7,7 @@ import {
 import { selectors as sessionSelectors } from 'store/other/session'
 import { Switch, Route, withRouter } from 'react-router-dom'
 import Moment from 'react-moment'
-import { Card, CardActionArea, CardContent, CardActions, CardMedia, Typography, Button, Grid } from '@material-ui/core'
+import { Card, CardActionArea, CardContent, CardActions, CardMedia, Button, Grid } from '@material-ui/core'
 import EmptyHeartIcon from '@material-ui/icons/FavoriteBorder'
 import HeartIcon from '@material-ui/icons/Favorite'
 

@@ -9,11 +9,11 @@ const FORBIDDEN_PATH = '/forbidden'
 
 // Example Usage:
 //
-// import { PrivateRoute } from 'components/Domain'
+// import { PrivateRoute } from 'components/App/Shared'
 //
 // <PrivateRoute
 //   path="/admin"
-//   permittedRoles={[constants.userRoles.Admin]}
+//   permittedRoles={[rolesEnum.Admin]}
 //   component={AdminPage}
 // />
 class PrivateRoute extends React.Component {

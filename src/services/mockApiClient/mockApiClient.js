@@ -22,7 +22,7 @@ class MockApiClient {
   }
 
   async logIn (email, password) {
-    await utils.timeout(TIMEOUT_MS)
+    await utils.timeout(TIMEOUT_MS * 5)
     this.setToken(token)
     return {
       token,
