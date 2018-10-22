@@ -1,0 +1,27 @@
+.imgContainer {
+  background-color: #cbd0d8;
+  overflow: hidden;
+}
+
+.imgFadeIn {
+  composes: fade-in from global;
+  height: 100%;
+  width: 100%;
+}
+
+.imgContainer img {
+  display: block;
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+  transition: transform .45s;
+}
+
+.zoomImgOnHover img:hover {
+  transform: scale(1.03);
+}
+
+.loader {
+  width: 100%;
+  height: 100%;
+}
