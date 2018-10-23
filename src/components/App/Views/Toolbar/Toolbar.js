@@ -8,7 +8,7 @@ import { selectors as sessionSelectors } from 'store/other/session'
 import { Switch, Route, withRouter } from 'react-router-dom'
 import { Grid, Button } from '@material-ui/core'
 import { isAuthenticated } from 'utils/authUtils'
-import { FlatButton } from 'components/Universal'
+import { FlatButton } from 'components/App/Shared'
 
 import styles from './Toolbar.module.css';
 

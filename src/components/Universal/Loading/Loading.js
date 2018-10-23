@@ -31,6 +31,9 @@ class Loading extends React.Component {
   start() {
     this.clear().then(() => {
       this.minTimeTimeout = setTimeout(() => {
+        if (!this._ismounted) {
+          return
+        }
         this.setState({
           minTimeElapsed: true
         });
@@ -39,9 +42,14 @@ class Loading extends React.Component {
   }
 
   componentDidMount() {
+    this._ismounted = true
     if (this.props.loading === true) {
       this.start();
     }
+  }
+
+  componentWillUnmount() {
+    this._ismounted = false
   }
 
   componentDidUpdate(prevProps, prevState) {
