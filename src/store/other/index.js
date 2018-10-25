@@ -1,4 +1,5 @@
 import * as sessionDuck from './session'
+import * as notificationsDuck from './notifications'
 
 /*
 *  The api module maintains async action info such as promise
@@ -8,6 +9,7 @@ import * as sessionDuck from './session'
 
 let ducks = [
   sessionDuck,
+  notificationsDuck,
 ]
 
 export const reducers = ducks.reduce(
