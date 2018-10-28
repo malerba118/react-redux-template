@@ -1,0 +1,11 @@
+.react-transition-group-fade-out {
+
+  .fade-out-leave {
+    opacity: 1;
+  }
+
+  .fade-out-leave.fade-out-leave-active {
+    opacity: 0;
+    transition: opacity 350ms ease-in;
+  }
+}

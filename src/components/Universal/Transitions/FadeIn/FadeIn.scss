@@ -1,0 +1,12 @@
+.react-transition-group-fade-in {
+
+  .fade-in-appear {
+    opacity: 0;
+  }
+
+  .fade-in-appear.fade-in-appear-active {
+    opacity: 1;
+    transition: opacity 350ms ease-in;
+  }
+
+}

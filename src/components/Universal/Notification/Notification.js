@@ -15,6 +15,7 @@ import SnackbarContent from '@material-ui/core/SnackbarContent';
 import WarningIcon from '@material-ui/icons/Warning';
 import { withStyles } from '@material-ui/core/styles';
 import isEqual from 'lodash/isEqual'
+import { FadeOut } from '../Transitions'
 
 const variants = ['success','warning', 'error', 'info']
 
@@ -44,9 +45,6 @@ const styles = theme => ({
   iconVariant: {
     opacity: 0.9,
     marginRight: theme.spacing.unit,
-  },
-  content: {
-    width: '600px',
   },
   message: {
     display: 'flex',
@@ -130,21 +128,22 @@ class Notification extends React.Component {
           horizontal: 'center',
         }}
         open={notification != null}
-        transitionDuration={200}
+        transitionDuration={300}
       >
         <SnackbarContent
           className={classNames(classes[variant], classes.content, className)}
           aria-describedby="client-snackbar"
           message={
-            <span
-              id="client-snackbar"
-              className={classes.message}
-            >
-              <Icon className={classNames(classes.icon, classes.iconVariant)} />
-              {notification && notification.message}
-            </span>
+              <FadeOut>
+                {notification && (
+                  <div className={classes.message}>
+                    <Icon className={classNames(classes.icon, classes.iconVariant)} />
+                    <span>{notification.message}</span>
+                  </div>
+                )}
+              </FadeOut>
           }
-          action={[
+          action={
             <IconButton
               key="close"
               aria-label="Close"
@@ -153,8 +152,8 @@ class Notification extends React.Component {
               onClick={this.onClose}
             >
               <CloseIcon className={classes.icon} />
-            </IconButton>,
-          ]}
+            </IconButton>
+          }
           {...other}
         />
       </Snackbar>
