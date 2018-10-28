@@ -5,7 +5,7 @@ import {
   selectors as apiSelectors
 } from 'store/api'
 import { Switch, Route } from 'react-router-dom'
-import { PrivateRoute } from 'components/App/Shared'
+import { PrivateRoute, Notifications } from 'components/App/Shared'
 import { LoginPage, PostListPage, FavoritePostsPage, AdminPage, Forbidden, Toolbar } from './Views'
 import { rolesEnum } from 'enums'
 import { MuiThemeProvider } from '@material-ui/core/styles'
@@ -15,12 +15,19 @@ import styles from './App.module.css'; // Import css modules stylesheet as style
 
 class App extends Component {
 
+  removeNotification = () => {
+    this.setState({
+      notification: null
+    })
+  }
+
   render() {
     return (
       <MuiThemeProvider theme={theme}>
         <div className={styles.app}>
           <Toolbar />
           <div className={styles.body}>
+            <Notifications />
             <Route
               exact
               path="/login"

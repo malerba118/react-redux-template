@@ -13,7 +13,7 @@ import { Loading } from 'components/Universal'
 import { FlatButton, PostCard } from 'components/App/Shared'
 import range from 'lodash/range'
 import { BounceLoader } from 'react-spinners'
-
+import { FadeIn } from 'components/Universal/Transitions'
 import styles from './PostListPage.module.css'
 
 class PostListPage extends Component {
@@ -75,31 +75,33 @@ class PostListPage extends Component {
             )
           }
           return (
-            <Grid container className={styles.pageContainer}>
-                {this.props.postsPage.posts.map((post) => (
-                  <Grid key={post.id} style={{padding: 24}} item xs={12} sm={6} lg={4}>
-                    <PostCard post={post} liked={post.likes.includes(this.props.session.user.id)}/>
+            <FadeIn>
+              <Grid container className={styles.pageContainer}>
+                  {this.props.postsPage.posts.map((post) => (
+                    <Grid key={post.id} style={{padding: 24}} item xs={12} sm={6} lg={4}>
+                      <PostCard post={post} liked={post.likes.includes(this.props.session.user.id)}/>
+                    </Grid>
+                  ))}
+                  <Grid item xs={12}>
+                    <div className={styles.pagination}>
+                      {range(this.props.postsPage.numPages).map((i) => (
+                        <FlatButton
+                          key={i}
+                          onClick={() => this.setPage(i)}
+                          className={
+                            [
+                              styles.paginationButton,
+                              i === this.props.postsPage.page ? styles.paginationButtonActive : ''
+                            ].join(' ')
+                          }
+                        >
+                          {i + 1}
+                        </FlatButton>
+                      ))}
+                    </div>
                   </Grid>
-                ))}
-                <Grid item xs={12}>
-                  <div className={styles.pagination}>
-                    {range(this.props.postsPage.numPages).map((i) => (
-                      <FlatButton
-                        key={i}
-                        onClick={() => this.setPage(i)}
-                        className={
-                          [
-                            styles.paginationButton,
-                            i === this.props.postsPage.page ? styles.paginationButtonActive : ''
-                          ].join(' ')
-                        }
-                      >
-                        {i + 1}
-                      </FlatButton>
-                    ))}
-                  </div>
-                </Grid>
-            </Grid>
+              </Grid>
+            </FadeIn>
           )
         }}
       </Loading>

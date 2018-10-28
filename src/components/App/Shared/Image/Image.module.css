@@ -3,12 +3,6 @@
   overflow: hidden;
 }
 
-.imgFadeIn {
-  composes: fade-in from global;
-  height: 100%;
-  width: 100%;
-}
-
 .imgContainer img {
   display: block;
   object-fit: cover;

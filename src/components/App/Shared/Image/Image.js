@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Img from 'react-image'
+import { FadeIn } from 'components/Universal/Transitions'
 
 import styles from './Image.module.css'
 
@@ -35,9 +36,9 @@ class Image extends React.Component {
                 <div className={styles.loader}></div>
               )}
               {children.type === 'img' && (
-                <div className={styles.imgFadeIn}>
+                <FadeIn>
                   {children}
-                </div>
+                </FadeIn>
               )}
             </div>
           )

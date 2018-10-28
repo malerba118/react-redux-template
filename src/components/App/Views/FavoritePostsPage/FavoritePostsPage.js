@@ -11,6 +11,7 @@ import { Redirect } from 'react-router-dom'
 import queryString from 'query-string'
 import { Grid } from '@material-ui/core'
 import { Loading } from 'components/Universal'
+import { FadeIn } from 'components/Universal/Transitions'
 import { FlatButton, PostCard } from 'components/App/Shared'
 import range from 'lodash/range'
 import { BounceLoader } from 'react-spinners'
@@ -37,19 +38,23 @@ class FavoritePostsPage extends Component {
           }
           if (this.props.posts.length === 0) {
             return (
-              <div className={styles.noPostsToShow}>
-                <span>You have not favorited any posts.</span>
-              </div>
+              <FadeIn>
+                <div className={styles.noPostsToShow}>
+                  <span>You have not favorited any posts.</span>
+                </div>
+              </FadeIn>
             )
           }
           return (
-            <Grid container className={styles.pageContainer}>
-                {this.props.posts.map((post) => (
-                  <Grid key={post.id} style={{padding: 24}} item xs={12} sm={6} lg={4}>
-                    <PostCard post={post} liked={post.likes.includes(this.props.session.user.id)}/>
-                  </Grid>
-                ))}
-            </Grid>
+            <FadeIn>
+              <Grid container className={styles.pageContainer}>
+                  {this.props.posts.map((post) => (
+                    <Grid key={post.id} style={{padding: 24}} item xs={12} sm={6} lg={4}>
+                      <PostCard post={post} liked={post.likes.includes(this.props.session.user.id)}/>
+                    </Grid>
+                  ))}
+              </Grid>
+            </FadeIn>
           )
         }}
       </Loading>
