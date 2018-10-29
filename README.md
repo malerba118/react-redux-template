@@ -8,8 +8,9 @@ On top of that there's too many damn libraries but no good recipes indicating ho
 them all in to a solid, maintainable app. This is supposed to be one such recipe.
 
 Some of the topics this template aims to address include:
-- [Component Scope](#component-scope)
-- Network Calls
+
+- [State Management](#state-management)
+- [Component Design](#component-design)
 - Authorization
 - Routing
 - Request/Response Interceptors
@@ -23,9 +24,124 @@ Some of the topics this template aims to address include:
 - Storybook
 - Testing
 
+## State Management
+
+The core of this application lies in the synergy of React, Redux, and Normalizr in combination.
+
+To understand how they orchestrate to manage state, let's consider a minimal request to fetch a list of Posts.
+
+Say we mount a PostListView component which dispatches an action to fetch posts.
+The response from the server might look like the following.
+
+```json
+[
+  {
+    "id": 1,
+    "title": "sunt aut facere",
+    "likes": [],
+    "author": {
+      "id": 38,
+      "name": "Leanne Graham",
+      "email": "Sincere@april.biz"
+    }
+  },
+  {
+    "id": 2,
+    "title": "qui est esse",
+    "likes": [],
+    "author": {
+      "id": 38,
+      "name": "Leanne Graham",
+      "email": "Sincere@april.biz"
+    }
+  }
+]
+```
+
+But the key now is not to directly shove this into our redux store and pipe it back into our component via mapDispatchToProps
+
+The key is to use normalizr to extract models from the response. When we normalize the server's response by extracting User and Post models, we get this data structure.
+
+```json
+{
+  "result": [1, 2],
+  "entities": {
+    "Post": {
+      "1": {
+        "id": 1,
+        "title": "sunt aut facere",
+        "likes": [],
+        "author": 38
+      },
+      "2": {
+        "id": 2,
+        "title": "qui est esse",
+        "likes": [],
+        "author": 38
+      }
+    },
+    "User": {
+      "38": {
+        "id": 38,
+        "name": "Leanne Graham",
+        "email": "Sincere@april.biz"
+      }
+    }
+  }
+}
+```
+
+We've now separated our data in to result and entities. 
+The result array is analagous to a query. It tells us what we need to grab from the entities object in order to rehydrate our response data. 
+The entities object is just an indexed representation of our models which will be merged into our local 'database' to create a single source of truth for our model data.
+
+We dispatch two actions 
+
+```javascript
+dbActions.updateEntities(normalizedData.entities)
+queryActions.setIds({
+  entity: 'Post',
+  tag: 'all',
+  ids: normalizedData.result
+})
+```
+
+and in our component we can grab the data by doing
+
+```javascript
+const mapStateToProps = (state) => {
+  let allPostIds = querySelectors.createIdsSelector('Post', 'all')(state)
+  let posts = dbSelectors.createEntitySelector('Post', allPostIds)(state)
+  return {
+    posts,
+  }
+}
+```
+
+The beauty of this model shows when performing POST, UPDATE, PATCH, DELETE operations because it allows our component to automatically update with new data. Take for example a dispatched action `apiActions.likePost({id: 1})`. On receiving a response from the server we can normalize the response to get the following.
 
 
-## Component Scope
+```json
+{
+  "result": 1,
+  "entities": {
+    "Post": {
+      "1": {
+        "id": 1,
+        "title": "sunt aut facere",
+        "likes": [38],
+        "author": 38
+      }
+    }
+  }
+}
+```
+
+And by dispatching `dbActions.updateEntities(normalizedLikedPost.entities)` we can use lodash's deepMerge
+to automatically update our entites and pipe this new data out to our PostListView and any other views
+that grab User/Post data by id.
+
+## Component Design
 
 I've organized components in to three distinct types.
 
