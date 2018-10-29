@@ -1,4 +1,4 @@
-import utils from 'services/utils'
+import { timeout } from 'utils/other'
 import users from './users.json'
 import allPosts from './posts.json'
 let posts = allPosts.slice(0, 10)
@@ -22,7 +22,7 @@ class MockApiClient {
   }
 
   async logIn (email, password) {
-    await utils.timeout(TIMEOUT_MS * 5)
+    await timeout(TIMEOUT_MS * 5)
     this.setToken(token)
     return {
       token,
@@ -31,7 +31,7 @@ class MockApiClient {
   }
 
   async getPosts ({page = 0, perPage = 6} = {}) {
-    await utils.timeout(TIMEOUT_MS)
+    await timeout(TIMEOUT_MS)
     return {
       page,
       perPage,
@@ -41,12 +41,12 @@ class MockApiClient {
   }
 
   async getMyFavoritePosts() {
-    await utils.timeout(TIMEOUT_MS)
+    await timeout(TIMEOUT_MS)
     return posts.filter(post => post.likes.includes(loggedInUser.id))
   }
 
   async likePost (id) {
-    await utils.timeout(TIMEOUT_MS)
+    await timeout(TIMEOUT_MS)
     let post = posts.find((p) => p.id === id)
     if (post) {
       // Normally user would be inferred from auth token
@@ -56,7 +56,7 @@ class MockApiClient {
   }
 
   async unlikePost (id) {
-    await utils.timeout(TIMEOUT_MS)
+    await timeout(TIMEOUT_MS)
     let post = posts.find((p) => p.id === id)
     if (post) {
       post.likes = []
@@ -65,7 +65,7 @@ class MockApiClient {
   }
 
   async logOut () {
-    await utils.timeout(TIMEOUT_MS)
+    await timeout(TIMEOUT_MS)
     delete this.token
     delete this.headers.Authorization
   }

@@ -1,38 +1,14 @@
 import React from 'react'
-
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { linkTo } from '@storybook/addon-links'
-import utils from 'services/utils'
+import { timeout } from 'utils/other'
 import { PulseLoader } from 'react-spinners'
 import { configureController } from 'stories/utils'
 import Loading from './'
 
-
-// class Controller extends React.Component {
-//   state = {
-//     loading: false
-//   }
-//
-//   componentDidMount() {
-//     this.setState({
-//       loading: true
-//     })
-//     utils.timeout(this.props.loadingTime || 0)
-//       .then(() => {
-//         this.setState({
-//           loading: false
-//         })
-//       })
-//   }
-//
-//   render() {
-//     return this.props.children(this.state.loading)
-//   }
-// }
-
 const handleAndFulfill = async () => {
-  await utils.timeout(3000)
+  await timeout(3000)
   return Promise.resolve()
 }
 

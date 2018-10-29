@@ -27,5 +27,5 @@
 }
 
 .heartIcon {
-  composes: textPrimary from global;
+  composes: text-primary from global;
 }

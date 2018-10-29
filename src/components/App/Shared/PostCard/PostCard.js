@@ -2,12 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {
   actions as apiActions,
-  selectors as apiSelectors
 } from 'store/api'
-import { selectors as sessionSelectors } from 'store/other/session'
-import { Switch, Route, withRouter } from 'react-router-dom'
 import Moment from 'react-moment'
-import { Card, CardActionArea, CardContent, CardActions, CardMedia, Button, Grid } from '@material-ui/core'
+import { Card, CardContent, CardActions, Button, Grid } from '@material-ui/core'
 import EmptyHeartIcon from '@material-ui/icons/FavoriteBorder'
 import HeartIcon from '@material-ui/icons/Favorite'
 import Image from '../Image'

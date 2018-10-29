@@ -4,9 +4,8 @@ import {
   actions as apiActions,
   selectors as apiSelectors
 } from 'store/api'
-import { selectors as querySelectors } from 'store/queries'
 import { selectors as sessionSelectors } from 'store/other/session'
-import { Redirect } from 'react-router-dom'
+import classNames from 'classnames'
 import queryString from 'query-string'
 import { Grid } from '@material-ui/core'
 import { Loading } from 'components/Universal'
@@ -78,7 +77,14 @@ class PostListPage extends Component {
             <FadeIn>
               <Grid container className={styles.pageContainer}>
                   {this.props.postsPage.posts.map((post) => (
-                    <Grid key={post.id} style={{padding: 24}} item xs={12} sm={6} lg={4}>
+                    <Grid
+                      key={post.id}
+                      className={styles.gridItem}
+                      item
+                      xs={12}
+                      sm={6}
+                      lg={4}
+                    >
                       <PostCard post={post} liked={post.likes.includes(this.props.session.user.id)}/>
                     </Grid>
                   ))}
@@ -88,12 +94,10 @@ class PostListPage extends Component {
                         <FlatButton
                           key={i}
                           onClick={() => this.setPage(i)}
-                          className={
-                            [
-                              styles.paginationButton,
-                              i === this.props.postsPage.page ? styles.paginationButtonActive : ''
-                            ].join(' ')
-                          }
+                          className={classNames(
+                            styles.paginationButton,
+                            i === this.props.postsPage.page ? styles.paginationButtonActive : ''
+                          )}
                         >
                           {i + 1}
                         </FlatButton>

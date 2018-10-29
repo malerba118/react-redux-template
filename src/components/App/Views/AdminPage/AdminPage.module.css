@@ -1,0 +1,5 @@
+.pageContainer {
+  composes: fit-viewport-body from global;
+  composes: children-center from global;
+  padding: 24px;
+}

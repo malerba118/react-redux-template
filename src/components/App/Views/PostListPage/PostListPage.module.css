@@ -7,18 +7,23 @@
   padding: 24px;
 }
 
+.gridItem {
+  padding: 24px;
+}
+
 .pagination {
   display: flex;
   padding: 24px;
 }
 
 .paginationButton {
+  composes: text-grey-7 from global;
   background-color: white;
   width: 64px;
   height: 64px;
 }
 
 .paginationButtonActive {
-  composes: backgroundPrimary from global;
-  color: white;
+  composes: background-primary from global;
+  color: white !important;
 }

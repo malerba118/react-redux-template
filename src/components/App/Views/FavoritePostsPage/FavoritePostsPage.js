@@ -7,13 +7,10 @@ import {
 import {selectors as dbSelectors} from 'store/db'
 import { selectors as querySelectors } from 'store/queries'
 import { selectors as sessionSelectors } from 'store/other/session'
-import { Redirect } from 'react-router-dom'
-import queryString from 'query-string'
 import { Grid } from '@material-ui/core'
 import { Loading } from 'components/Universal'
 import { FadeIn } from 'components/Universal/Transitions'
-import { FlatButton, PostCard } from 'components/App/Shared'
-import range from 'lodash/range'
+import { PostCard } from 'components/App/Shared'
 import { BounceLoader } from 'react-spinners'
 
 import styles from './FavoritePostsPage.module.css'
@@ -49,7 +46,14 @@ class FavoritePostsPage extends Component {
             <FadeIn>
               <Grid container className={styles.pageContainer}>
                   {this.props.posts.map((post) => (
-                    <Grid key={post.id} style={{padding: 24}} item xs={12} sm={6} lg={4}>
+                    <Grid
+                      key={post.id}
+                      className={styles.gridItem}
+                      item
+                      xs={12}
+                      sm={6}
+                      lg={4}
+                    >
                       <PostCard post={post} liked={post.likes.includes(this.props.session.user.id)}/>
                     </Grid>
                   ))}

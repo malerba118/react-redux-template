@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 
+import styles from './AdminPage.module.css'
+
 class AdminPage extends Component {
 
   render() {
     return (
-      <div style={{height: 'calc(100vh - 64px)'}} >
+      <div className={styles.pageContainer}>
         <span>AdminPage</span>
       </div>
     )

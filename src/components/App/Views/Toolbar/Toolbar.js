@@ -2,11 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {
   actions as apiActions,
-  selectors as apiSelectors
 } from 'store/api'
 import { selectors as sessionSelectors } from 'store/other/session'
-import { Switch, Route, withRouter } from 'react-router-dom'
-import { Grid, Button } from '@material-ui/core'
+import { withRouter } from 'react-router-dom'
 import { isAuthenticated } from 'utils/authUtils'
 import { FlatButton } from 'components/App/Shared'
 

@@ -1,7 +1,7 @@
 
 .Toolbar {
   composes: border-bottom from global;
-  composes: appBackgroundColor from global;
+  composes: app-background-color from global;
   height: 64px;
   position: fixed;
   top: 0;
@@ -14,6 +14,7 @@
 }
 
 .toolbarButton {
+  composes: text-grey-7 from global;
   height: 100%;
 }
 

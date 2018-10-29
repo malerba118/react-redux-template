@@ -1,10 +1,5 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import {
-  actions as apiActions,
-  selectors as apiSelectors
-} from 'store/api'
-import { Switch, Route } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import { PrivateRoute, Notifications } from 'components/App/Shared'
 import { LoginPage, PostListPage, FavoritePostsPage, AdminPage, Forbidden, Toolbar } from './Views'
 import { rolesEnum } from 'enums'
@@ -14,12 +9,6 @@ import theme from './theme'
 import styles from './App.module.css'; // Import css modules stylesheet as styles
 
 class App extends Component {
-
-  removeNotification = () => {
-    this.setState({
-      notification: null
-    })
-  }
 
   render() {
     return (

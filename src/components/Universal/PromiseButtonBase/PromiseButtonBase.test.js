@@ -5,10 +5,10 @@ import { HashRouter } from 'react-router-dom'
 import initStore from 'store/initStore'
 import PromiseButtonBase from './PromiseButtonBase'
 import { mount, shallow, render } from 'enzyme'
-import utils from 'services/utils'
+import { timeout } from 'utils/other'
 
 const onClick= jest.fn()
-const onClickPending = jest.fn().mockReturnValue(utils.timeout(50000))
+const onClickPending = jest.fn().mockReturnValue(timeout(50000))
 const onClickResolved = jest.fn().mockReturnValue(Promise.resolve())
 const onClickRejected = jest.fn().mockReturnValue(Promise.reject())
 const renderOnPending = () => <div className="pending"/>
@@ -60,7 +60,7 @@ describe('PromiseButtonBase', () => {
       </PromiseButtonBase>
     )
     component.find('PromiseButtonBase').simulate('click')
-    return utils.timeout(1000).then(() => {
+    return timeout(1000).then(() => {
       component.update()
       expect(component.find('.rejected').length).toEqual(1);
       expect(component.find('.fulfilled').length).toEqual(0);
@@ -79,7 +79,7 @@ describe('PromiseButtonBase', () => {
       </PromiseButtonBase>
     )
     component.find('PromiseButtonBase').simulate('click')
-    return utils.timeout(1000).then(() => {
+    return timeout(1000).then(() => {
       component.update()
       expect(component.find('.rejected').length).toEqual(0);
       expect(component.find('.fulfilled').length).toEqual(0);

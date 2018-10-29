@@ -3,18 +3,18 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
-import utils from 'services/utils'
+import { timeout } from 'utils/other'
 import { PulseLoader } from 'react-spinners'
 
 import PromiseButtonBase from './';
 
 const handleAndReject = async () => {
-  await utils.timeout(3000)
+  await timeout(3000)
   return Promise.reject()
 }
 
 const handleAndFulfill = async () => {
-  await utils.timeout(3000)
+  await timeout(3000)
   return Promise.resolve()
 }
 

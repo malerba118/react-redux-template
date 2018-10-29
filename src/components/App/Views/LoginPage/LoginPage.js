@@ -2,11 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {
   actions as apiActions,
-  selectors as apiSelectors
 } from 'store/api'
 import { selectors as sessionSelectors } from 'store/other/session'
-import { Redirect } from 'react-router-dom'
-import { TextField, Button } from '@material-ui/core'
+import { TextField } from '@material-ui/core'
 import { PromiseButton } from 'components/App/Shared'
 import { FadeIn } from 'components/Universal/Transitions'
 import { actions as notificationActions } from 'store/other/notifications'
@@ -44,9 +42,6 @@ class LoginPage extends Component {
   }
 
   render() {
-    // if (this.props.session !== null) {
-    //   return <Redirect to="/"/>
-    // }
     return (
       <FadeIn>
         <div className={styles.root}>

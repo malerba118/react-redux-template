@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import { PromiseButtonBase } from 'components/Universal'
 import { PulseLoader } from 'react-spinners'
 

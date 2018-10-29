@@ -1,9 +1,4 @@
 import { handleActions, createAction } from 'redux-actions'
-import { createAsyncAction } from 'redux-promise-middleware-actions'
-import mockApiClient from 'services/mockApiClient'
-import { schemas, actions as dbActions } from '../db'
-import { actions as queryActions } from '../queries'
-import { normalize } from 'normalizr'
 
 // Reducer namespace
 export const namespace = `notifications`

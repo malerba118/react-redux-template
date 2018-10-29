@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 
+import styles from './Forbidden.module.css'
+
 class Forbidden extends Component {
 
   render() {
     return (
-      <div style={{height: 'calc(100vh - 64px)'}} >
+      <div className={styles.pageContainer}>
         <span>Forbidden</span>
       </div>
     )

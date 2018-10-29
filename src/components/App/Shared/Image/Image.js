@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import Img from 'react-image'
 import { FadeIn } from 'components/Universal/Transitions'
 
