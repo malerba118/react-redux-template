@@ -2,7 +2,7 @@
 
 Obligatory App Demo: https://malerba118.github.io/react-redux-template/#/
 
-This app is intended to provide an opinionated starter template for building react/redux apps.
+This app is intended to provide an opinionated starter template for building react/redux apps that perform CRUD operations on remote relational data.
 There's too many crappy ToDo apps out there that don't discuss solutions to real world issues.
 On top of that there's too many damn libraries but no good recipes indicating how to combine
 them all in to a solid, maintainable app. This is supposed to be one such recipe.
@@ -27,16 +27,17 @@ Some of the topics this template aims to address include:
 
 ## Component Scope
 
-I've identified three distinct component types:
+I've organized components in to three distinct types.
 
 ### Universal
 
-Components that are self-contained and could be easily dragged and dropped into other applications because they are not bound to this application (unaware of models, app-specific styling, redux, ...etc)
-### App/Shared 
+Components that are self-contained and could be easily dragged and dropped into other applications because they are not bound to this application. They are unaware of models, app-specific styling, redux, ...etc and they are highly customizable.
 
-Components that are reusable across this application but would be difficult to use in another application because they are aware of domain knowledge (eg a DogBreedCardView that's aware of a DogBreed model)
+### App/Shared
 
-### Views 
+Components that are reusable across this application but would be difficult to use in another application because they are aware of domain knowledge (eg a DogBreedCardView that's aware of a DogBreed model). They are rigid in order to help keep the user experience consistent throughout the application.
+
+### Views
 
 Container-like components that are intended to be used once. These will be the most tied to your application and we don't care about their reusability.
 
