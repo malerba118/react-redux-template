@@ -7,6 +7,25 @@ There's too many crappy ToDo apps out there that don't discuss solutions to real
 On top of that there's too many damn libraries but no good recipes indicating how to combine
 them all in to a solid, maintainable app. This is supposed to be one such recipe.
 
+## To Run Locally
+
+Install Node <br/>
+`nvm install v8.11.3`
+
+Install Yarn <br/>
+`npm install -g yarn`
+
+Enable absolute imports <br/>
+`cp .env.example .env`
+
+Install dependencies <br/>
+`yarn`
+
+Run app <br/>
+`yarn start`
+
+## Overview
+
 Some of the topics this template aims to address include:
 
 - [State Management](#state-management)
