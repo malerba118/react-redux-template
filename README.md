@@ -76,7 +76,7 @@ The response from the server might look like the following.
 ]
 ```
 
-But the key now is not to directly shove this into our redux store and pipe it back into our component via mapDispatchToProps
+But the key now is not to directly shove this into our redux store and pipe it back into our component via mapStateToProps
 
 The key is to use normalizr to extract models from the response. When we normalize the server's response by extracting User and Post models, we get this data structure.
 
@@ -229,7 +229,7 @@ This allows use to reuse css utilities, while naming css classes semantically at
 
 ## Persistence
 
-Persistance is achieved as [recommended by Dan Abramov](https://egghead.io/lessons/javascript-redux-persisting-the-state-to-the-local-storage) by saving pieces of the redux state to browser local storage and rehydrating the store on app initialization.
+Persistence is achieved as [recommended by Dan Abramov](https://egghead.io/lessons/javascript-redux-persisting-the-state-to-the-local-storage) by saving pieces of the redux state to browser local storage and rehydrating the store on app initialization.
 
 ```jsx
 /* localStorage.js */
